@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.puzzle.physiotrack.model.entity.Exercise;
 import com.puzzle.physiotrack.model.entity.Patient;
+import com.puzzle.physiotrack.model.entity.Session;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -33,5 +34,15 @@ public class SessionDTO {
                 ", date=" + date +
                 ", comment='" + comment + '\'' +
                 '}';
+    }
+
+    public Session toSession() {
+        Session s = new Session();
+        s.setId(this.id);
+        s.setComment(this.comment);
+        s.setDate(this.date);
+        s.setTime(this.time);
+        //s.setPt_id(this.patient.getId());
+        return s;
     }
 }

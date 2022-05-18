@@ -36,8 +36,8 @@ public class Session {
     @JsonFormat(pattern="dd-MM-yyyy")
     private LocalDate date;
     private String comment;
-    //@JsonIgnore
-    @ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "pt_id")
     private Patient patient;
 

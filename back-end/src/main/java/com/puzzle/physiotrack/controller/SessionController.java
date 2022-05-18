@@ -29,18 +29,18 @@ public class SessionController {
     SessionService sessionService;
 
     @RequestMapping(value="/session/{pid}", method = RequestMethod.GET)
-    public List<Session> getSessions(@PathVariable long pid) {
+    public List<SessionDTO> getSessions(@PathVariable long pid) {
         //Doctor currentDoctor= doctorService.getCurrentlyLoggedInDoctor();
         Doctor currentDoctor= doctorService.getDoctor(3);
 
         Patient currentPatient=patientService.getPatient(currentDoctor,pid);
         if(currentPatient==null)
             throw new NotFoundException("Patient not found with id:" + pid);
-        return currentPatient.getSessions();
+        return currentPatient.getSessions().stream().map(Session::toSessionDTO).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/session/{pid}/{sid}", method = RequestMethod.GET)
-    public Session getSession(@PathVariable long pid,@PathVariable long sid) {
+    public SessionDTO getSession(@PathVariable long pid,@PathVariable long sid) {
         //Doctor currentDoctor= doctorService.getCurrentlyLoggedInDoctor();
         Doctor currentDoctor= doctorService.getDoctor(3);
 
@@ -50,7 +50,7 @@ public class SessionController {
         Session session=currentPatient.getSession(sid);
         if(session==null)
             throw new NotFoundException("No patient");
-        return session;
+        return session.toSessionDTO();
     }
 
     @RequestMapping(value="/session", method = RequestMethod.GET)
@@ -68,27 +68,27 @@ public class SessionController {
     }
 
     @PostMapping(value="/session/{pid}")
-    public Session addSession(@PathVariable long pid, @Valid @RequestBody Session session) {
+    public SessionDTO addSession(@PathVariable long pid, @Valid @RequestBody SessionDTO sessiondto) {
         //Doctor currentDoctor= doctorService.getCurrentlyLoggedInDoctor();
         Doctor currentDoctor= doctorService.getDoctor(3);
-
+        Session session=sessiondto.toSession();
         Patient currentPatient=patientService.getPatient(currentDoctor,pid);
         session.setPatient(currentPatient);
-        return sessionService.addSession(session);
+        return sessionService.addSession(session).toSessionDTO();
     }
 
     @PutMapping(value="/session/{pid}")
-    public Session updateSession(@PathVariable long pid, @Valid @RequestBody Session session) {
+    public SessionDTO updateSession(@PathVariable long pid, @Valid @RequestBody SessionDTO sessiondto) {
         //Doctor currentDoctor= doctorService.getCurrentlyLoggedInDoctor();
         Doctor currentDoctor= doctorService.getDoctor(3);
-
+        Session session=sessiondto.toSession();
         Patient currentPatient=patientService.getPatient(currentDoctor,pid);
         session.setPatient(currentPatient);
-        return sessionService.updateSession(session);
+        return sessionService.updateSession(session).toSessionDTO();
     }
 
     @RequestMapping(value = "/session/{sid}", method = RequestMethod.DELETE)
-    public Session deleteSession(@PathVariable long sid) {
-        return sessionService.deleteSession(sid);
+    public SessionDTO deleteSession(@PathVariable long sid) {
+        return sessionService.deleteSession(sid).toSessionDTO();
     }
 }
