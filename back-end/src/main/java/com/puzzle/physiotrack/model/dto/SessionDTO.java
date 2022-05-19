@@ -25,6 +25,7 @@ public class SessionDTO {
     private LocalDate date;
     private String comment;
     private Long pt_id;
+    private boolean is_completed;
 
     @Override
     public String toString() {
@@ -42,6 +43,7 @@ public class SessionDTO {
         s.setComment(this.comment);
         s.setDate(this.date);
         s.setTime(this.time);
+        s.set_completed(this.is_completed);
         //s.setPt_id(this.patient.getId());
         return s;
     }

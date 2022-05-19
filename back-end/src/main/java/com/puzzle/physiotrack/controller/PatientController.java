@@ -65,6 +65,7 @@ public class PatientController {
         List<String> exercises=patientdto.getExercises();
         int period=patientdto.getPeriod();
         int sessionAmount=patientdto.getSessionAmount();
+        String weak=patientdto.getWeak().toUpperCase(Locale.ROOT);
         String time= patientdto.getSessionHour();
         List<Integer> timeList= Arrays.stream(time.split(":")).map(Integer::parseInt).collect(Collectors.toList());
         LocalTime localTime=LocalTime.of(timeList.get(0),timeList.get(1));
@@ -82,12 +83,14 @@ public class PatientController {
             for (String e:exercises) {
                 Exercise exercise=new Exercise();
                 exercise.setName(e);
-                exercise.setAngles(new ArrayList<>());
+                exercise.setWeak(weak);
+                exercise.setHip_angles(new ArrayList<>());
+                exercise.setShoulder_angles(new ArrayList<>());
                 exerciseList.add(exercise);
             }
             session.setComment("");
             session.setPatient(patient);
-            System.out.println(session.getId());
+            session.set_completed(false);
             sessionService.addSession(session);
 
             for (Exercise ex : exerciseList) {
@@ -98,7 +101,6 @@ public class PatientController {
         }
 
         patient.setDoctor(currentDoctor);
-        patient.getSessions().forEach(System.out::println);
         return patientService.addPatient(patient);
     }
 

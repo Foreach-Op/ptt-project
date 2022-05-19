@@ -87,6 +87,16 @@ public class SessionController {
         return sessionService.updateSession(session).toSessionDTO();
     }
 
+    @PutMapping(value="/completesession/{sid}")
+    public SessionDTO completeSession(@PathVariable long sid) {
+        System.out.println("Here");
+        Session session= sessionService.getSession(sid);
+        if(session.is_completed())
+            return session.toSessionDTO();
+        session.set_completed(true);
+        return sessionService.updateSession(session).toSessionDTO();
+    }
+
     @RequestMapping(value = "/session/{sid}", method = RequestMethod.DELETE)
     public SessionDTO deleteSession(@PathVariable long sid) {
         return sessionService.deleteSession(sid).toSessionDTO();

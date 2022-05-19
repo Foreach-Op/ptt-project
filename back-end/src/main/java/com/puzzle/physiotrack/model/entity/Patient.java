@@ -31,6 +31,7 @@ public class Patient {
     private String patientTellNo;
     private Boolean isMan=false;
     private String patientDisease;
+    private int recovery;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "dr_id")
@@ -50,6 +51,7 @@ public class Patient {
         p.setExercises(new ArrayList<>());
         p.setPeriod(0);
         p.setSessionAmount(sessions.size());
+        p.setRecovery(recovery);
         return p;
     }
 

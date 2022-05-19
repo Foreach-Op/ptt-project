@@ -32,7 +32,7 @@ public class ExerciseController {
 
     @Autowired
     ExerciseService exerciseService;
-    /*
+
     @RequestMapping(value="/exercise/{sid}", method = RequestMethod.GET)
     public List<Exercise> getExercises(@PathVariable long sid) {
         Session currentSession=sessionService.getSession(sid);
@@ -40,9 +40,9 @@ public class ExerciseController {
             throw new NotFoundException("Session not found with id:" + sid);
         return currentSession.getExercises();
     }
-*/
-    @RequestMapping(value="/exercise/{pid}", method = RequestMethod.GET)
-    public HashMap<Integer,HashMap<Integer,List<Integer>>> getExercises(@PathVariable long pid) {
+
+    @RequestMapping(value="/patientexercise/{pid}", method = RequestMethod.GET)
+    public HashMap<Integer,HashMap<Integer,HashMap<String,List<Integer>>>> getPatientExercises(@PathVariable long pid) {
         Doctor currentDoctor= doctorService.getDoctor(3);
         Patient patient=patientService.getPatient(currentDoctor,pid);
         List<Session> sessions=patient.getSessions();
@@ -56,20 +56,26 @@ public class ExerciseController {
         });
 
          */
-        HashMap<Integer,HashMap<Integer,List<Integer>>> map=new HashMap<>();
+        HashMap<Integer,HashMap<Integer,HashMap<String,List<Integer>>>> map=new HashMap<>();
 
         int key1=1;
         for (Session s : sessions) {
+            if (!s.is_completed())
+                continue;
+
             if(!map.containsKey(key1))
                 map.put(key1,new HashMap<>());
-            HashMap<Integer,List<Integer>> currentMap=map.get(key1);
+            HashMap<Integer,HashMap<String,List<Integer>>> currentMap=map.get(key1);
             List<Exercise> exercises=s.getExercises();
             if(exercises==null)
                 break;
 
             int key2=1;
             for (Exercise e : exercises) {
-                currentMap.put(key2,e.getAngles());
+                HashMap<String,List<Integer>> tempMap= new HashMap<>();
+                tempMap.put("shoulder",e.getShoulder_angles());
+                tempMap.put("hip",e.getHip_angles());
+                currentMap.put(key2,tempMap);
                 key2++;
             }
             key1++;
@@ -106,7 +112,8 @@ public class ExerciseController {
     public Exercise updateExercise(@PathVariable long eid, @RequestBody Map<String, List<Integer>> payload) {
         System.out.println("Here");
         Exercise currentExercise=exerciseService.getExercise(eid);
-        currentExercise.getAngles().addAll(payload.get("1"));
+        currentExercise.getHip_angles().addAll(payload.get("hip"));
+        currentExercise.getShoulder_angles().addAll(payload.get("shoulder"));
         //currentExercise.setAngles(data);
         return exerciseService.updateExercise(currentExercise);
     }

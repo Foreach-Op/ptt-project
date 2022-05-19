@@ -24,14 +24,16 @@ public class PatientDTO {
 
     private List<String> exercises;
     private String sessionHour;
+    private String weak;
 
     private int period;
-
+    private int recovery;
     private int sessionAmount;
+
 
     public PatientDTO(){}
 
-    public PatientDTO(long id, String patientFirstName, String patientLastName, String patientEmail, String patientTellNo, Boolean isMan, String patientDisease, List<String> exercises, int period, int sessionAmount, String time) {
+    public PatientDTO(long id, String patientFirstName, String patientLastName, String patientEmail, String patientTellNo, Boolean isMan, String patientDisease, List<String> exercises, String sessionHour, String weak, int period, int sessionAmount) {
         this.id = id;
         this.patientFirstName = patientFirstName;
         this.patientLastName = patientLastName;
@@ -40,9 +42,10 @@ public class PatientDTO {
         this.isMan = isMan;
         this.patientDisease = patientDisease;
         this.exercises = exercises;
+        this.sessionHour = sessionHour;
+        this.weak = weak;
         this.period = period;
         this.sessionAmount = sessionAmount;
-        this.sessionHour =time;
     }
 
     public Patient toPatient() {
@@ -57,85 +60,7 @@ public class PatientDTO {
         return p;
     }
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getPatientFirstName() {
-        return patientFirstName;
-    }
-
-    public void setPatientFirstName(String patientFirstName) {
-        this.patientFirstName = patientFirstName;
-    }
-
-    public String getPatientLastName() {
-        return patientLastName;
-    }
-
-    public void setPatientLastName(String patientLastName) {
-        this.patientLastName = patientLastName;
-    }
-
-    public String getPatientEmail() {
-        return patientEmail;
-    }
-
-    public void setPatientEmail(String patientEmail) {
-        this.patientEmail = patientEmail;
-    }
-
-    public String getPatientTellNo() {
-        return patientTellNo;
-    }
-
-    public void setPatientTellNo(String patientTellNo) {
-        this.patientTellNo = patientTellNo;
-    }
-
-    public Boolean getMan() {
-        return isMan;
-    }
-
-    public void setMan(Boolean man) {
-        isMan = man;
-    }
-
-    public String getPatientDisease() {
-        return patientDisease;
-    }
-
-    public void setPatientDisease(String patientDisease) {
-        this.patientDisease = patientDisease;
-    }
-
-    public List<String> getExercises() {
-        return exercises;
-    }
-
-    public void setExercises(List<String> exercises) {
-        this.exercises = exercises;
-    }
-
-    public int getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(int period) {
-        this.period = period;
-    }
-
-    public int getSessionAmount() {
-        return sessionAmount;
-    }
-
-    public void setSessionAmount(int sessionAmount) {
-        this.sessionAmount = sessionAmount;
-    }
 
     @Override
     public String toString() {

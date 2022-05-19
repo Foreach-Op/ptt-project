@@ -36,6 +36,7 @@ public class Session {
     @JsonFormat(pattern="dd-MM-yyyy")
     private LocalDate date;
     private String comment;
+    private boolean is_completed;
     @JsonIgnore
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "pt_id")

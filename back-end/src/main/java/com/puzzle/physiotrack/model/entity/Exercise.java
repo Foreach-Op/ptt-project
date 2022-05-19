@@ -24,8 +24,12 @@ public class Exercise {
     @Column(name = "exercise_id")
     private long id;
     private String name;
+    private String weak;
     @ElementCollection
-    private List<Integer> angles;
+    private List<Integer> shoulder_angles;
+
+    @ElementCollection
+    private List<Integer> hip_angles;
     @JsonIgnore
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "session_id")
