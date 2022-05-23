@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class PatientDTO {
@@ -60,6 +61,7 @@ public class PatientDTO {
         p.setIsMan(this.isMan);
         p.setPatientDisease(this.patientDisease);
         p.setOptimum(this.optimum);
+        p.setExercise_types_weak(exercises.stream().map(e->e+"-"+weak).collect(Collectors.toList()));
         return p;
     }
 

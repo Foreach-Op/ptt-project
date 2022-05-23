@@ -33,6 +33,9 @@ public class Patient {
     private String patientDisease;
     private int recovery;
     private int optimum;
+    @ElementCollection
+    private List<String> exercise_types_weak;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "dr_id")
@@ -54,6 +57,8 @@ public class Patient {
         p.setSessionAmount(sessions.size());
         p.setRecovery(this.recovery);
         p.setOptimum(this.optimum);
+        p.setExercises(exercise_types_weak.stream().map(e->e.split("-")[0]).collect(Collectors.toList()));
+        p.setWeak(exercise_types_weak.get(0).split("-")[1]);
         return p;
     }
 
