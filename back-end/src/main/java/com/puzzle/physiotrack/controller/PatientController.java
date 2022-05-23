@@ -74,6 +74,7 @@ public class PatientController {
         for (int i = 0; i < sessionAmount; i++) {
             Session session=new Session();
             DayOfWeek day=currentDate.getDayOfWeek();
+
             if(day==DayOfWeek.SUNDAY)
                 currentDate=currentDate.plusDays(1);
 

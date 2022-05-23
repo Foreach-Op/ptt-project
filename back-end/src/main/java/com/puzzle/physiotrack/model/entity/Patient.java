@@ -32,6 +32,7 @@ public class Patient {
     private Boolean isMan=false;
     private String patientDisease;
     private int recovery;
+    private int optimum;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "dr_id")
@@ -51,7 +52,8 @@ public class Patient {
         p.setExercises(new ArrayList<>());
         p.setPeriod(0);
         p.setSessionAmount(sessions.size());
-        p.setRecovery(recovery);
+        p.setRecovery(this.recovery);
+        p.setOptimum(this.optimum);
         return p;
     }
 
@@ -66,6 +68,7 @@ public class Patient {
                 ", isMan=" + isMan +
                 ", patientDisease='" + patientDisease + '\'' +
                 ", sessions=" + sessions +
+                ", optimum=" + optimum +
                 '}';
     }
 

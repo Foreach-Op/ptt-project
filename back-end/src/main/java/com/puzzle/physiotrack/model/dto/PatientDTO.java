@@ -29,11 +29,12 @@ public class PatientDTO {
     private int period;
     private int recovery;
     private int sessionAmount;
+    private int optimum;
 
 
     public PatientDTO(){}
 
-    public PatientDTO(long id, String patientFirstName, String patientLastName, String patientEmail, String patientTellNo, Boolean isMan, String patientDisease, List<String> exercises, String sessionHour, String weak, int period, int sessionAmount) {
+    public PatientDTO(long id, String patientFirstName, String patientLastName, String patientEmail, String patientTellNo, Boolean isMan, String patientDisease, List<String> exercises, String sessionHour, String weak, int period, int sessionAmount, int optimum) {
         this.id = id;
         this.patientFirstName = patientFirstName;
         this.patientLastName = patientLastName;
@@ -46,6 +47,7 @@ public class PatientDTO {
         this.weak = weak;
         this.period = period;
         this.sessionAmount = sessionAmount;
+        this.optimum = optimum;
     }
 
     public Patient toPatient() {
@@ -57,6 +59,7 @@ public class PatientDTO {
         p.setPatientTellNo(this.patientTellNo);
         p.setIsMan(this.isMan);
         p.setPatientDisease(this.patientDisease);
+        p.setOptimum(this.optimum);
         return p;
     }
 

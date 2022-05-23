@@ -60,9 +60,9 @@ public class ExerciseController {
 
         int key1=1;
         for (Session s : sessions) {
-            if (!s.is_completed())
+            /*if (!s.is_completed())
                 continue;
-
+            */
             if(!map.containsKey(key1))
                 map.put(key1,new HashMap<>());
             HashMap<Integer,HashMap<String,List<Integer>>> currentMap=map.get(key1);
