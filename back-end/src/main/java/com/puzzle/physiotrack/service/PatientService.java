@@ -10,6 +10,7 @@ public interface PatientService {
 
     List<Patient> getPatients(Doctor doctor);
     Patient getPatient(Doctor doctor, long patient_id);
+    Patient getPatientById(long patient_id);
     Patient addPatient(Patient patient);
     Patient updatePatient(Patient product);
     Patient deletePatient(long patient_id);

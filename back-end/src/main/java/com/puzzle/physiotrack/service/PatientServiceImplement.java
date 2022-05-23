@@ -29,6 +29,12 @@ public class PatientServiceImplement implements PatientService{
     }
 
     @Override
+    public Patient getPatientById(long patient_id) {
+        Optional<Patient> patient = patientRepository.findById(patient_id);
+        return patient.orElse(null);
+    }
+
+    @Override
     @Transactional
     public Patient addPatient(Patient patient) {
         patientRepository.save(patient);

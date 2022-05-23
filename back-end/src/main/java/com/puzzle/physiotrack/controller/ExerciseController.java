@@ -98,23 +98,12 @@ public class ExerciseController {
         exercise.setSession(currentSession);
         return exerciseService.addExercise(exercise);
     }
-    /*
-    @PutMapping(value="/exercise/{sid}")
-    public Exercise updateExercise(@PathVariable long sid, @Valid @RequestBody Exercise exercise) {
-        Session currentSession=sessionService.getSession(sid);
-        exercise.setSession(currentSession);
-        return exerciseService.updateExercise(exercise);
-    }
-
-     */
 
     @PutMapping(value="/exercise/{eid}")
     public Exercise updateExercise(@PathVariable long eid, @RequestBody Map<String, List<Integer>> payload) {
-        System.out.println("Here");
         Exercise currentExercise=exerciseService.getExercise(eid);
         currentExercise.getHip_angles().addAll(payload.get("hip"));
         currentExercise.getShoulder_angles().addAll(payload.get("shoulder"));
-        //currentExercise.setAngles(data);
         return exerciseService.updateExercise(currentExercise);
     }
 

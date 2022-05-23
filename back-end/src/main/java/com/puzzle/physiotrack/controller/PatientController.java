@@ -112,6 +112,15 @@ public class PatientController {
         return patientService.updatePatient(patient);
     }
 
+    @PutMapping("/patient/{id}/{recovery}")
+    public Patient updatePatientRecovery(@PathVariable long id,@PathVariable int recovery) {
+        //Doctor currentDoctor= doctorService.getCurrentlyLoggedInDoctor();
+        //patient.setDoctor(currentDoctor);
+        Patient patient=patientService.getPatientById(id);
+        patient.setRecovery(recovery);
+        return patientService.updatePatient(patient);
+    }
+
     @RequestMapping(value = "/patient/{id}", method = RequestMethod.DELETE)
     public Patient deletePatient(@PathVariable long id) {
         return patientService.deletePatient(id);
