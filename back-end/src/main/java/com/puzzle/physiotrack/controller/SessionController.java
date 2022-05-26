@@ -39,19 +39,21 @@ public class SessionController {
         return currentPatient.getSessions().stream().map(Session::toSessionDTO).collect(Collectors.toList());
     }
 
-    @RequestMapping(value="/getcurrentsession/{pid}", method = RequestMethod.GET)
-    public SessionDTO getCurrentSession(@PathVariable long pid) {
+    @RequestMapping(value="/currentsession/{pid}", method = RequestMethod.GET)
+    public int getCurrentSession(@PathVariable long pid) {
         //Doctor currentDoctor= doctorService.getCurrentlyLoggedInDoctor();
         Doctor currentDoctor= doctorService.getDoctor(3);
 
         Patient currentPatient=patientService.getPatient(currentDoctor,pid);
         if(currentPatient==null)
             throw new NotFoundException("Patient not found with id:" + pid);
+        int index=0;
         for (Session s : currentPatient.getSessions()) {
             if(!s.is_completed())
-                return s.toSessionDTO();
+                return index;
+            index++;
         }
-        return null;
+        return -1;
     }
 
     @RequestMapping(value = "/session/{pid}/{sid}", method = RequestMethod.GET)
@@ -102,7 +104,7 @@ public class SessionController {
         return sessionService.updateSession(session).toSessionDTO();
     }
 
-    @PutMapping(value="/completesession/{sid}")
+    @PostMapping(value="/completesession/{sid}")
     public SessionDTO completeSession(@PathVariable long sid) {
         System.out.println("Here");
         Session session= sessionService.getSession(sid);

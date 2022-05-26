@@ -46,23 +46,13 @@ public class ExerciseController {
         Doctor currentDoctor= doctorService.getDoctor(3);
         Patient patient=patientService.getPatient(currentDoctor,pid);
         List<Session> sessions=patient.getSessions();
-        /*
-
-        Collections.sort(sessions, new Comparator<Session>() {
-            @Override
-            public int compare(Session o1, Session o2) {
-                return LocalDate.c;
-            }
-        });
-
-         */
         HashMap<Integer,HashMap<Integer,HashMap<String,List<Integer>>>> map=new HashMap<>();
 
         int key1=1;
         for (Session s : sessions) {
-            /*if (!s.is_completed())
+            if (!s.is_completed())
                 continue;
-            */
+
             if(!map.containsKey(key1))
                 map.put(key1,new HashMap<>());
             HashMap<Integer,HashMap<String,List<Integer>>> currentMap=map.get(key1);

@@ -40,7 +40,7 @@ public class Patient {
     @ManyToOne
     @JoinColumn(name = "dr_id")
     private Doctor doctor;
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient",cascade = CascadeType.REMOVE)
     private List<Session> sessions=new ArrayList<>();
 
     public PatientDTO toPatientDTO() {

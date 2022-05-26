@@ -37,7 +37,7 @@ public class Doctor implements UserDetails {
     private Boolean locked=false;
     private Boolean enabled=true;
     @JsonIgnore
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "doctor",cascade = CascadeType.REMOVE)
     private List<Patient> patients=new ArrayList<>();
 
     public Doctor(String f_name, String l_name, String email, String password, AppUserRole appUserRole) {

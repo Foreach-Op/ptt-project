@@ -43,7 +43,7 @@ public class Session {
     private Patient patient;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "session",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "session",cascade=CascadeType.REMOVE)
     private List<Exercise> exercises=new ArrayList<>();
 
     public Exercise getExercise(long id){
@@ -69,6 +69,7 @@ public class Session {
         s.setDate(this.date);
         s.setTime(this.time);
         s.setPt_id(this.patient.getId());
+        s.set_completed(this.is_completed);
         return s;
     }
 }
